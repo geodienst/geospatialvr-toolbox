@@ -1,1 +1,1 @@
-"c:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python" .\batchobjimport.py ./work/objfiles ./work test
+"c:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python" .\batchobjimport.py ./work/buitenhof/objfiles ./work/buitenhof buitenhofoutput
