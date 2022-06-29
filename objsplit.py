@@ -1,4 +1,4 @@
-!/usr/bin/python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 """Split an OBJ file into separate files per named object
