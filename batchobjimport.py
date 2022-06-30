@@ -23,7 +23,6 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
     output_fc_name = 'import'
     outputfc = output_gdb_path + '/' + output_gdb_name + '.gdb/' + output_fc_name
     outputfc2d = output_gdb_path + '/' + output_gdb_name + '.gdb/' + 'footprint2d'
-    outputcfjoined = output_gdb_path + '/' + output_gdb_name + '/' + 'joined'
 
     print(obj_input_dir)
     # set input dir and create list list with import files
