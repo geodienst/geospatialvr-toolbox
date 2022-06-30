@@ -24,7 +24,7 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
     outputfc = output_gdb_path + '/' + output_gdb_name + '.gdb/' + output_fc_name
     outputfc2d = output_gdb_path + '/' + output_gdb_name + '.gdb/' + 'footprint2d'
 
-    print(obj_input_dir)
+    arcpy.AddMessage('Import directory = {} '.format(obj_input_dir))
     # set input dir and create list list with import files
     arcpy.env.workspace = obj_input_dir
     print('workspace=' + arcpy.env.workspace)
