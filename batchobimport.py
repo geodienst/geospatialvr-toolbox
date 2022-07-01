@@ -60,8 +60,7 @@ def import_files(obj_input_dir, objlist, outputfc):
     # coordinate system RD New and NAP elevation for 3D BAG
     sr = arcpy.SpatialReference(28992, 5709)
     count_files = len(objlistpath)
-    print('start import')
-    print(str(count_files) + ' obj files to import')
+    arcpy.AddMessage('start import')
     arcpy.AddMessage("{0} obj files to import".format(str(count_files)))
 
     arcpy.ddd.Import3DFiles(objlistpath, outputfc, False, sr)
@@ -72,7 +71,7 @@ def import_files(obj_input_dir, objlist, outputfc):
 
     if count_imported < count_files:
         count_missing = count_files - count_imported
-        print(str(count_imported) + ' files imported into: ' + outputfc + '  ' + str(count_missing) + ' missing')
+        arcpy.AddMessage(str(count_imported) + ' files imported into: ' + outputfc + '  ' + str(count_missing) + ' missing')
 
         # check which files are imported
         imported_rows = arcpy.SearchCursor(outputfc, fields="Name")
@@ -87,10 +86,10 @@ def import_files(obj_input_dir, objlist, outputfc):
         with open(not_imported_file, "w") as outfile:
             outfile.write("\n".join(not_imported))
 
-        print('check ' + not_imported_file + ' for missing files')
+        arcpy.AddMessage('check ' + not_imported_file + ' for missing files')
 
     if count_imported > count_files:
-        print('import error: more files imported than input')
+        arcpy.AddMessage('import error: more files imported than input')
 
 
 if __name__ == '__main__':
