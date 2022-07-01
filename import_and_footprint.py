@@ -14,6 +14,7 @@ python batchobjimport.py  C:/Users/meule001/Downloads/split/ C:/Users/meule001/D
 import sys
 import arcpy
 from arcpy import ddd
+import importfunctions
 
 
 def main(obj_input_dir, output_gdb_path, output_gdb_name):
@@ -38,7 +39,7 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
     print('workspace2=' + arcpy.env.workspace)
 
     # import all listed files
-    import_files(obj_input_dir, objlist, outputfc)
+    import_obj_files(obj_input_dir, objlist, outputfc, output_gdb_path)
 
     # calculate 3d statistics
     arcpy.AddMessage('calculate 3D statistics')
@@ -50,16 +51,18 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
 
     arcpy.management.JoinField(outputfc, "Name", outputfc2d, "Name", "Shape_Area")
 
-    arcpy.AddMessage("Ready {0} created".format(fullpathgdb))
+    arcpy.AddMessage("{0} created".format(fullpathgdb))
 
-
-def import_files(obj_input_dir, objlist, outputfc):
+def import_obj_files(obj_input_dir, objlist, outputfc, output_gdb_path):
     objlistpath = []
     for o in objlist:
         objlistpath.append(obj_input_dir + '/' + o)
     # coordinate system RD New and NAP elevation for 3D BAG
     sr = arcpy.SpatialReference(28992, 5709)
     count_files = len(objlistpath)
+    if count_files <= 1:
+        arcpy.AddMessage('There is only 1 obj file, this is probably an error')
+        sys.exit(-1)
     arcpy.AddMessage('start import')
     arcpy.AddMessage("{0} obj files to import".format(str(count_files)))
 
@@ -81,7 +84,7 @@ def import_files(obj_input_dir, objlist, outputfc):
             imported_list.append("{}".format(row.getValue("Name")))
         # make list of not imported files
         not_imported = list(set(objlist) - set(imported_list))
-        not_imported_file = output_gdb_path + output_gdb_name + '_missing.txt'
+        not_imported_file = output_gdb_path + '\missing.txt'
 
         with open(not_imported_file, "w") as outfile:
             outfile.write("\n".join(not_imported))
@@ -90,7 +93,6 @@ def import_files(obj_input_dir, objlist, outputfc):
 
     if count_imported > count_files:
         arcpy.AddMessage('import error: more files imported than input')
-
 
 if __name__ == '__main__':
     obj_input_dir = sys.argv[1]
