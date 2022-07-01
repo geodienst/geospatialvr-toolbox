@@ -1,0 +1,1 @@
+"c:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python" .\footprint.py C:\github\geospatialvr\work\test.gdb\import
