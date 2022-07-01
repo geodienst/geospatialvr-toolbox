@@ -18,18 +18,17 @@ from arcpy import ddd
 
 def main(obj_input_dir, output_gdb_path, output_gdb_name):
     output_fc_name = 'import'
+
     fullpathgdb = output_gdb_path + '/' + output_gdb_name + '.gdb'
     outputfc = fullpathgdb + "/" + output_fc_name
     outputfc2d = fullpathgdb + "/" + 'footprint2d'
-    outputcfjoined = fullpathgdb + "/" + 'joined'
 
-    print(obj_input_dir)
     arcpy.AddMessage("importing files from {0}".format(obj_input_dir))
+
     # set input dir and create list list with import files
     arcpy.env.workspace = obj_input_dir
     print('workspace=' + arcpy.env.workspace)
     objlist = arcpy.ListFiles('*.obj')
-
 
     # create output database
     arcpy.env.overwriteOutput = True
