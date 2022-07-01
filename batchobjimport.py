@@ -17,43 +17,59 @@ from arcpy import ddd
 
 
 def main(obj_input_dir, output_gdb_path, output_gdb_name):
-    # obj_input_dir = 'C:/Users/meule001/Downloads/split/'
-    # output_gdb_path = 'C:/Users/meule001/Downloads/'
-    # output_gdb_name = 'batchimport.gdb'
     output_fc_name = 'import'
-    outputfc = output_gdb_path + '/' + output_gdb_name + '.gdb/' + output_fc_name
-    outputfc2d = output_gdb_path + '/' + output_gdb_name + '.gdb/' + 'footprint2d'
-    outputcfjoined = output_gdb_path + '/' + output_gdb_name + '/' + 'joined'
+    fullpathgdb = output_gdb_path + '/' + output_gdb_name + '.gdb'
+    outputfc = fullpathgdb + "/" + output_fc_name
+    outputfc2d = fullpathgdb + "/" + 'footprint2d'
+    outputcfjoined = fullpathgdb + "/" + 'joined'
 
     print(obj_input_dir)
+    arcpy.AddMessage("importing files from {0}".format(obj_input_dir))
     # set input dir and create list list with import files
     arcpy.env.workspace = obj_input_dir
     print('workspace=' + arcpy.env.workspace)
     objlist = arcpy.ListFiles('*.obj')
-    objlistpath = []
-    for o in objlist:
-        objlistpath.append(obj_input_dir + '/' + o)
-    print(objlistpath[1])
-    count_files = len(objlistpath)
-    print(str(count_files) + ' obj files to import')
 
-    # coordinate system RD New and NAP elevation for 3D BAG
-    sr = arcpy.SpatialReference(28992, 5709)
 
     # create output database
     arcpy.env.overwriteOutput = True
     arcpy.management.CreateFileGDB(output_gdb_path, output_gdb_name)
 
-    arcpy.env.workspace = output_gdb_path + '/' + output_gdb_name + '.gdb/'
+    arcpy.env.workspace = fullpathgdb
     print('workspace2=' + arcpy.env.workspace)
 
     # import all listed files
+    import_files(obj_input_dir, objlist, outputfc)
+
+    # calculate 3d statistics
+    arcpy.AddMessage('calculate 3D statistics')
+    arcpy.ddd.AddZInformation(outputfc, 'SURFACE_AREA; VOLUME')
+
+    # create 2d footprint for ground area
+    arcpy.AddMessage('calculate 2d footprints and add footprint area to to attributes')
+    arcpy.ddd.MultiPatchFootprint(outputfc, outputfc2d)
+
+    arcpy.management.JoinField(outputfc, "Name", outputfc2d, "Name", "Shape_Area")
+
+    arcpy.AddMessage("Ready {0} created".format(fullpathgdb))
+
+
+def import_files(obj_input_dir, objlist, outputfc):
+    objlistpath = []
+    for o in objlist:
+        objlistpath.append(obj_input_dir + '/' + o)
+    # coordinate system RD New and NAP elevation for 3D BAG
+    sr = arcpy.SpatialReference(28992, 5709)
+    count_files = len(objlistpath)
     print('start import')
+    print(str(count_files) + ' obj files to import')
+    arcpy.AddMessage("{0} obj files to import".format(str(count_files)))
+
     arcpy.ddd.Import3DFiles(objlistpath, outputfc, False, sr)
     count_imported = int(str(arcpy.GetCount_management(outputfc)))
-
+    arcpy.AddMessage("{0} obj files imported".format(str(count_imported)))
     if count_imported == count_files:
-        print('all ' + str(count_imported) + ' files imported into: ' + outputfc)
+        arcpy.AddMessage('all ' + str(count_imported) + ' files imported into: ' + outputfc)
 
     if count_imported < count_files:
         count_missing = count_files - count_imported
@@ -76,16 +92,6 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
 
     if count_imported > count_files:
         print('import error: more files imported than input')
-
-    # calculate 3d statistics
-    print('calculate 3D statistics')
-    arcpy.ddd.AddZInformation(outputfc, 'SURFACE_AREA; VOLUME')
-
-    # create 2d footprint for ground area
-    print('calculate 2d footprints and add footprint area to to attributes')
-    arcpy.ddd.MultiPatchFootprint(outputfc, outputfc2d)
-
-    arcpy.management.JoinField(outputfc, "Name", outputfc2d, "Name", "Shape_Area")
 
 
 if __name__ == '__main__':
