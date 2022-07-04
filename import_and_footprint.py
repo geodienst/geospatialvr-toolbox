@@ -28,7 +28,6 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
 
     # set input dir and create list list with import files
     arcpy.env.workspace = obj_input_dir
-    print('workspace=' + arcpy.env.workspace)
     objlist = arcpy.ListFiles('*.obj')
 
     # create output database
@@ -36,7 +35,6 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
     arcpy.management.CreateFileGDB(output_gdb_path, output_gdb_name)
 
     arcpy.env.workspace = fullpathgdb
-    print('workspace2=' + arcpy.env.workspace)
 
     # import all listed files
     import_obj_files(obj_input_dir, objlist, outputfc, output_gdb_path)
