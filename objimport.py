@@ -36,7 +36,7 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
     arcpy.management.CreateFileGDB(output_gdb_path, output_gdb_name)
 
     arcpy.env.workspace = fullpathgdb
-   
+
     # import all listed files
     import_obj_files(obj_input_dir, objlist, outputfc, output_gdb_path)
 

@@ -14,7 +14,7 @@ python batchobjimport.py  C:/Users/meule001/Downloads/split/ C:/Users/meule001/D
 import sys
 import arcpy
 from arcpy import ddd
-import importfunctions
+
 
 
 def main(obj_input_dir, output_gdb_path, output_gdb_name):
@@ -23,6 +23,9 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
     fullpathgdb = output_gdb_path + '/' + output_gdb_name + '.gdb'
     outputfc = fullpathgdb + "/" + output_fc_name
     outputfc2d = fullpathgdb + "/" + 'footprint2d'
+
+    # Set the progressor
+    arcpy.SetProgressor("step", "Importing objfiles en calculate some statistics", 0, 4, 1)
 
     arcpy.AddMessage("importing files from {0}".format(obj_input_dir))
 
@@ -37,19 +40,28 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
     arcpy.env.workspace = fullpathgdb
 
     # import all listed files
+    showProgress("Importing files from:{0}".format(obj_input_dir), 1)
     import_obj_files(obj_input_dir, objlist, outputfc, output_gdb_path)
 
     # calculate 3d statistics
-    arcpy.AddMessage('calculate 3D statistics')
+    showProgress("Calculate 3D statistics", 2)
     arcpy.ddd.AddZInformation(outputfc, 'SURFACE_AREA; VOLUME')
 
     # create 2d footprint for ground area
-    arcpy.AddMessage('calculate 2d footprints and add footprint area to to attributes')
+    showProgress('Calculate 2d footprints and add footprint area to the attributes', 3)
     arcpy.ddd.MultiPatchFootprint(outputfc, outputfc2d)
 
     arcpy.management.JoinField(outputfc, "Name", outputfc2d, "Name", "Shape_Area")
 
     arcpy.AddMessage("{0} created".format(fullpathgdb))
+
+
+def showProgress(text, step):
+    arcpy.SetProgressorLabel(text)
+    arcpy.SetProgressorPosition(step)
+    arcpy.AddMessage(text)
+
+
 
 def import_obj_files(obj_input_dir, objlist, outputfc, output_gdb_path):
     objlistpath = []
@@ -91,6 +103,7 @@ def import_obj_files(obj_input_dir, objlist, outputfc, output_gdb_path):
 
     if count_imported > count_files:
         arcpy.AddMessage('import error: more files imported than input')
+
 
 if __name__ == '__main__':
     obj_input_dir = sys.argv[1]
