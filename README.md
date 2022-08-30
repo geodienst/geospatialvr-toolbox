@@ -1,29 +1,16 @@
-# README #
+# Geospatial VR Toolbox #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This toolbox allows for exchanging data between ArcGIS (Pro) and the Merkator City software.
 
-### What is this repository for? ###
+The toolbox contains of several tools:
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* objsplit: split up .OBJ files with multiple objects into single files (based on gist [balazsdukai/objsplit.py](https://gist.github.com/balazsdukai/dca936c72bd7a596fea5e4a2bb34a912) )
+* objimport: Import a directory of obj files into a new file geodatabase feature class.
 
-### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+### Requirements ###
 
-### Contribution guidelines ###
+* Arcpy environment based on ArcGIS Pro version 2.9.3
 
-* Writing tests
-* Code review
-* Other guidelines
+The tool is developed based on data from [© 3D BAG by tudelft3d](https://3dbag.nl/en/download) 
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
