@@ -1,1 +1,1 @@
-"c:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python" .\batchobjimport.py ./work/buitenhof/objfiles ./work/buitenhof buitenhofoutput
+"c:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python" .\import_and_footprint.py c:\Users\p149377\Documents\geospatialvr\waskemeer\objfiles\ c:\Users\p149377\Documents\geospatialvr\waskemeer\export\ maandag

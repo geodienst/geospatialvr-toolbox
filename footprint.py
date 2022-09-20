@@ -7,7 +7,7 @@ def main(imported_buildings):
     arcpy.AddMessage(imported_buildings)
     arcpy.AddMessage(arcpy.Describe(arcpy.Describe(imported_buildings).catalogPath).path)
     outputfc = imported_buildings
-    outputfc2d = arcpy.Describe(arcpy.Describe(imported_buildings).catalogPath).path + "/" + 'foottprint2d'
+    outputfc2d = arcpy.Describe(arcpy.Describe(imported_buildings).catalogPath).path + "/" + 'footprint2d'
 
     # create 2d footprint for ground area
     arcpy.AddMessage('calculate 2d footprints and add footprint area to to attributes')
