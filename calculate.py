@@ -60,7 +60,7 @@ def main(shape_file, obj_file, output_dir):
     gsitable = gdb + '/groundspaceindex3' + str(time.time()).split('.')[0]
     arcpy.AddMessage('gsitable=' + gsitable)
     arcpy.gapro.SummarizeWithin(outputfc2d, gsitable, "POLYGON", '', None, areas, "ADD_SUMMARY", "SQUARE_METERS", "Shape_Area SUM", None, None, "NO_MIN_MAJ", None, None)
-    arcpy.management.CalculateField(in_table=gsitable, field="gsi", expression="$feature.SUM_Area_SQUAREMETERS / $feature.Shape_Area",
+    arcpy.management.CalculateField(in_table=gsitable, field="gsi", expression="round(($feature.SUM_Area_SQUAREMETERS / $feature.Shape_Area), 3)",
                                     expression_type="ARCADE", code_block="", field_type="TEXT", enforce_domains="NO_ENFORCE_DOMAINS")[0]
 
     # export to csv
