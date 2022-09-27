@@ -1,1 +1,2 @@
-"c:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python" .\import_and_footprint.py c:\Users\p149377\Documents\geospatialvr\waskemeer\objfiles\ c:\Users\p149377\Documents\geospatialvr\waskemeer\export\ maandag
+
+"c:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python" .\import_and_footprint.py c:\Users\p149377\Documents\geospatialvr\september\objfiles\ c:\Users\p149377\Documents\geospatialvr\september\ waskemeer
