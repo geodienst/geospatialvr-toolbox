@@ -20,6 +20,7 @@ import objimport
 def main(obj_input_dir, output_gdb_path, output_gdb_name):
     output_fc_name = 'import'
 
+    fullpathgdb = output_gdb_path + '/' + output_gdb_name + '.gdb'
     outputfc = fullpathgdb + "/" + output_fc_name
     outputfc2d = fullpathgdb + "/" + 'footprint2d'
 
