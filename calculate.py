@@ -60,7 +60,7 @@ def main(shape_file, obj_file, output_dir):
     arcpy.management.JoinField(outputfc, "Name", outputfc2d, "Name", "Shape_Area")
 
     gsitable = gdb + '/groundspaceindex3' + str(time.time()).split('.')[0]
-    arcpy.AddMessage('gsitable=' + gsitable)
+    arcpy.AddMessage('Calculating Ground Space Index')
     arcpy.gapro.SummarizeWithin(outputfc2d, gsitable, "POLYGON", '', None, areas, "ADD_SUMMARY", "SQUARE_METERS", "Shape_Area SUM", None, None, "NO_MIN_MAJ", None, None)
     arcpy.management.CalculateField(in_table=gsitable, field="gsi", expression="round(($feature.SUM_Area_SQUAREMETERS / $feature.Shape_Area), 3)",
                                     expression_type="ARCADE", code_block="", field_type="TEXT", enforce_domains="NO_ENFORCE_DOMAINS")[0]
@@ -69,12 +69,17 @@ def main(shape_file, obj_file, output_dir):
     arcpy.AddMessage('Create csv file with buildings and areas: ' + 'output.csv')
     # csv file with buildings in polygons
     spatialjoin = gdb + '/SpatialJoin'
-    arcpy.analysis.SpatialJoin(areas, outputfc2d, spatialjoin, "JOIN_ONE_TO_MANY", "KEEP_ALL", 'Name "File Name" true true false 255 Text 0 0,First,#,buildings,Name,0,255', "INTERSECT", None, '')
+    arcpy.analysis.SpatialJoin(areas, outputfc2d, spatialjoin, "JOIN_ONE_TO_MANY", "KEEP_ALL", 'Name "File Name" true true false 255 Text 0 0,First,#,' + outputfc2d +
+                               ',Name,0,255', "INTERSECT", None, '')
     arcpy.conversion.TableToTable(spatialjoin, output_dir, 'output.csv', '', 'Join_Count "Join_Count" true true false 4 Long 0 0,First,#,SpatialJoin,Join_Count,-1,-1;TARGET_FID "TARGET_FID" true true false 4 Long 0 0,First,#,SpatialJoin,TARGET_FID,-1,-1;JOIN_FID "JOIN_FID" true true false 4 Long 0 0,First,#,SpatialJoin,JOIN_FID,-1,-1;Name "File Name" true true false 255 Text 0 0,First,#,SpatialJoin,Name,0,255;SArea "SArea" true true false 8 Double 0 0,First,#,SpatialJoin,SArea,-1,-1;Volume "Volume" true true false 8 Double 0 0,First,#,SpatialJoin,Volume,-1,-1;Z_Min "Z_Min" true true false 8 Double 0 0,First,#,SpatialJoin,Z_Min,-1,-1;Z_Max "Z_Max" true true false 8 Double 0 0,First,#,Polygons_SpatialJoin4,Z_Max,-1,-1;Shape_Length "Shape_Length" false true true 8 Double 0 0,First,#,SpatialJoin,Shape_Length,-1,-1;Shape_Area "Shape_Area" false true true 8 Double 0 0,First,#,SpatialJoin,Shape_Area,-1,-1', '')
 
-    arcpy.AddMessage('Create shapefile with global space index: ' + 'output.shp')
+    arcpy.AddMessage('Create shapefile with global space index: ' + 'gsioutput.shp')
     #shapefile
-    arcpy.conversion.FeatureClassToFeatureClass(gsitable, output_dir, 'output.shp')
+    arcpy.conversion.FeatureClassToFeatureClass(gsitable, output_dir, 'gsioutput.shp')
+
+    #shapefile
+    arcpy.AddMessage('Create shapefile with buildings: ' + 'buildings.shp')
+    arcpy.conversion.FeatureClassToFeatureClass(outputfc2d, output_dir, 'buildings.shp')
 
 def obj_split(file_in, dir_out):
     v_pat = re.compile(r"^v\s[\s\S]*")  # vertex
