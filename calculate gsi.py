@@ -10,7 +10,7 @@ def main(areas_of_interest, buildings):
     gsitable = gdbpath + "/groundspaceindex3" + str(time.time()).split('.')[0]
     Output_Grouped_Table = ""
     Building_Area_Field = "Shape_Area"
-    arcpy.gapro.SummarizeWithin(buildings, gsitable, "POLYGON", '', None, areas_of_interest, "ADD_SUMMARY", "SQUARE_METERS", "Shape_Area SUM", None, None, "NO_MIN_MAJ", None, None)
+    arcpy.gapro.SummarizeWithin(buildings, gsitable, "POLYGON", '', None, areas_of_interest, "ADD_SUMMARY", "SQUARE_METERS", "Shape_Area SUM Count", None, None, "NO_MIN_MAJ", None, None)
 
     arcpy.management.CalculateField(in_table=gsitable, field="gsi", expression="$feature.SUM_Area_SQUAREMETERS / $feature.Shape_Area",
                                 expression_type="ARCADE", code_block="", field_type="TEXT", enforce_domains="NO_ENFORCE_DOMAINS")[0]
