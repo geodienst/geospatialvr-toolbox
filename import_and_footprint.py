@@ -22,7 +22,7 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
 
     fullpathgdb = output_gdb_path + '/' + output_gdb_name + '.gdb'
     outputfc = fullpathgdb + "/" + output_fc_name
-    outputfc2d = fullpathgdb + "/" + 'footprint2d'
+    outputfc2d = fullpathgdb + "/" + 'buildings'
 
     # Set the progressor
     arcpy.SetProgressor("step", "Importing objfiles en calculate some statistics", 0, 4, 1)
@@ -72,6 +72,9 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
     #shapefile
     arcpy.AddMessage('Create shapefile with buildings: ' + 'buildings.shp')
     arcpy.conversion.FeatureClassToFeatureClass(outputfc2d, output_gdb_path, 'buildings.shp')
+
+    arcpy.AddMessage("Buildings feature class {0} created".format(outputfc2d))
+
 
 def showProgress(text, step):
     arcpy.SetProgressorLabel(text)
