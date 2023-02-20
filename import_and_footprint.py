@@ -61,7 +61,13 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
 
     arcpy.conversion.FeatureClassToFeatureClass(r"C:\Users\p149377\Documents\ArcGIS\Projects\geospatialvr\geospatialvr.gdb\Polygons", r"C:\output", "test2.shp")
 
-    arcpy.management.CreateTable(fullpathgdb, "table")
+    mean_height = 2.5
+
+    arcpy.AddMessage("Calculate Floor area")
+    # arcpy.management.CalculateField(in_table=outputfc2d, field="Floor_Area", expression="round(($feature.Z_Max - $feature.Z_Min)/2.5) * $feature.Shape_Area, 3)",
+    #                                 expression_type="ARCADE")
+
+    arcpy.management.CalculateField(outputfc2d, "Floor_Area", "((!Z_Max! - !Z_Min!)/2.5)*!Shape_Area!", "PYTHON3", '', "DOUBLE", "NO_ENFORCE_DOMAINS")
 
 def showProgress(text, step):
     arcpy.SetProgressorLabel(text)
