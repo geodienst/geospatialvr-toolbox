@@ -35,7 +35,7 @@ def calculatefsi(shape_file, buildings):
     # shapefile
     fsi_file = 'fsioutput.shp'
     arcpy.AddMessage("outputdirectory: " + head)
-    arcpy.AddMessage("File with Floo Space Index: " + fsi_file)
+    arcpy.AddMessage("File with Floor Space Index: " + fsi_file)
     arcpy.conversion.FeatureClassToFeatureClass(fsitable, head, fsi_file)
 
 
@@ -43,8 +43,8 @@ def calculatefsi(shape_file, buildings):
 if __name__ == '__main__':
     # Tool parameter accessed with GetParameter or GetParameterAsText
     area_of_interest = arcpy.GetParameterAsText(0)
-    gdb_path = arcpy.GetParameterAsText(1)
-    buildings = gdb_path + "\\footprint2d"
+    buildings = arcpy.GetParameterAsText(1)
+    # buildings = gdb_path + "\\footprint2d"
     arcpy.AddMessage('Areas of Interest: ' + area_of_interest)
     arcpy.AddMessage('Buildings: ' + buildings)
     calculatefsi(area_of_interest, buildings)

@@ -37,8 +37,8 @@ def main(shape_file, buildings):
 if __name__ == '__main__':
     # Tool parameter accessed with GetParameter or GetParameterAsText
     area_of_interest = arcpy.GetParameterAsText(0)
-    gdb_path = arcpy.GetParameterAsText(1)
-    buildings = gdb_path + "\\footprint2d"
+    buildings = arcpy.GetParameterAsText(1)
+    # buildings = gdb_path + "\\footprint2d"
     arcpy.AddMessage('Areas of Interest: ' + area_of_interest)
     arcpy.AddMessage('Buildings: ' + buildings)
     main(area_of_interest, buildings)
