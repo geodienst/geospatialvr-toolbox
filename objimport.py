@@ -24,7 +24,7 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
     outputfc = fullpathgdb + "/" + output_fc_name
     outputfc2d = fullpathgdb + "/" + 'footprint2d'
 
-    arcpy.AddMessage("importing files from {0}".format(obj_input_dir))
+
 
     # set input dir and create list list with import files
     arcpy.env.workspace = obj_input_dir
@@ -76,7 +76,7 @@ def import_obj_files(obj_input_dir, objlist, outputfc, output_gdb_path):
             imported_list.append("{}".format(row.getValue("Name")))
         # make list of not imported files
         not_imported = list(set(objlist) - set(imported_list))
-        not_imported_file = output_gdb_path + 'missing.txt'
+        not_imported_file = output_gdb_path + '\missing.txt'
 
         with open(not_imported_file, "w") as outfile:
             outfile.write("\n".join(not_imported))

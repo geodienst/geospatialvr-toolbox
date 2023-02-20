@@ -59,7 +59,7 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
 
     # arcpy.conversion.FeatureClassToFeatureClass(["Polygons"], "C:/output", "shapes.shp")
 
-    arcpy.conversion.FeatureClassToFeatureClass(r"C:\Users\p149377\Documents\ArcGIS\Projects\geospatialvr\geospatialvr.gdb\Polygons", r"C:\output", "test2.shp")
+
 
     mean_height = 2.5
 
@@ -68,6 +68,10 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
     #                                 expression_type="ARCADE")
 
     arcpy.management.CalculateField(outputfc2d, "Floor_Area", "((!Z_Max! - !Z_Min!)/2.5)*!Shape_Area!", "PYTHON3", '', "DOUBLE", "NO_ENFORCE_DOMAINS")
+
+    #shapefile
+    arcpy.AddMessage('Create shapefile with buildings: ' + 'buildings.shp')
+    arcpy.conversion.FeatureClassToFeatureClass(outputfc2d, output_gdb_path, 'buildings.shp')
 
 def showProgress(text, step):
     arcpy.SetProgressorLabel(text)

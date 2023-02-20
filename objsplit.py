@@ -19,6 +19,8 @@ import sys
 from contextlib import contextmanager
 import os
 
+import arcpy
+
 
 @contextmanager
 def suppress_stdout():
@@ -141,5 +143,12 @@ def main(file_in, dir_out):
 
 if __name__ == '__main__':
     file_in = sys.argv[1]
-    dir_out = sys.argv[2]
+
+    arcpy.AddMessage("Input file " + file_in)
+    head, tail = os.path.split(file_in)
+    dir_out = head + "\\objfiles"
+    arcpy.AddMessage("Result obj files in: " + dir_out)
+    if not os.path.exists(dir_out):
+        arcpy.AddMessage("Creating directory " +  dir_out  + " for objfiles")
+        os.mkdir(dir_out)
     main(file_in, dir_out)
