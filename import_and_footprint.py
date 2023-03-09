@@ -15,9 +15,10 @@ import sys
 import arcpy
 from arcpy import ddd
 import objimport
+from math import floor
 
 
-def main(obj_input_dir, output_gdb_path, output_gdb_name):
+def main(obj_input_dir, output_gdb_path, output_gdb_name, floor_height):
     output_fc_name = 'import'
 
     fullpathgdb = output_gdb_path + '/' + output_gdb_name + '.gdb'
@@ -61,13 +62,13 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name):
 
 
 
-    mean_height = 2.5
+
 
     arcpy.AddMessage("Calculate Floor area")
     # arcpy.management.CalculateField(in_table=outputfc2d, field="Floor_Area", expression="round(($feature.Z_Max - $feature.Z_Min)/2.5) * $feature.Shape_Area, 3)",
     #                                 expression_type="ARCADE")
 
-    arcpy.management.CalculateField(outputfc2d, "Floor_Area", "((!Z_Max! - !Z_Min!)/2.5)*!Shape_Area!", "PYTHON3", '', "DOUBLE", "NO_ENFORCE_DOMAINS")
+    arcpy.management.CalculateField(outputfc2d, "Floor_Area", "floor((!Z_Max! - !Z_Min!)/floor_height)*!Shape_Area!", "PYTHON3", '', "DOUBLE", "NO_ENFORCE_DOMAINS")
 
     #shapefile
     arcpy.AddMessage('Create shapefile with buildings: ' + 'buildings.shp')
@@ -128,4 +129,5 @@ if __name__ == '__main__':
     obj_input_dir = sys.argv[1]
     output_gdb_path = sys.argv[2]
     output_gdb_name = sys.argv[3]
-    main(obj_input_dir, output_gdb_path, output_gdb_name)
+    floor_height = int(sys.argv[4])
+    main(obj_input_dir, output_gdb_path, output_gdb_name, floor_height)
