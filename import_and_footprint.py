@@ -56,14 +56,6 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name, floor_height):
 
     arcpy.AddMessage("{0} created".format(fullpathgdb))
 
-    # arcpy.FeatureClassToShapefile_conversion("Polygons", "C:/output")
-
-    # arcpy.conversion.FeatureClassToFeatureClass(["Polygons"], "C:/output", "shapes.shp")
-
-
-
-
-
     arcpy.AddMessage("Calculate Floor area")
     # arcpy.management.CalculateField(in_table=outputfc2d, field="Floor_Area", expression="round(($feature.Z_Max - $feature.Z_Min)/2.5) * $feature.Shape_Area, 3)",
     #                                 expression_type="ARCADE")
