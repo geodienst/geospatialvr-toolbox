@@ -1,1 +1,1 @@
-"c:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python" .\objsplit.py Y:\staff\LowCost\cit\geomancer\werkmap\project\geospatialvr\3dbag_v210908_fd2cee53_lod22_3d_5002.obj Y:\staff\LowCost\cit\geomancer\werkmap\project\geospatialvr\ouput
+"c:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python" .\objsplit.py c:\Users\p149377\Documents\geospatialvr\september\3dbag_v210908_fd2cee53_lod22_3d_602.obj c:\Users\p149377\Documents\geospatialvr\september\objfiles

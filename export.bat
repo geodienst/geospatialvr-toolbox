@@ -1,0 +1,1 @@
+"c:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python" .\exportdata.py  c:\Users\p149377\Documents\geospatialvr\september\footprint2D.shp c:\Users\p149377\Documents\geospatialvr\september\areas_of_interest.shp data.csv areas.shp
