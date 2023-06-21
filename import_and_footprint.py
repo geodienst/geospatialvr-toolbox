@@ -19,6 +19,7 @@ from math import floor
 
 
 def main(obj_input_dir, output_gdb_path, output_gdb_name, floor_height):
+    arcpy.AddMessage("Floor height {0}".format(floor_height))
     output_fc_name = 'import'
 
     fullpathgdb = output_gdb_path + '/' + output_gdb_name + '.gdb'
@@ -60,7 +61,7 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name, floor_height):
     # arcpy.management.CalculateField(in_table=outputfc2d, field="Floor_Area", expression="round(($feature.Z_Max - $feature.Z_Min)/2.5) * $feature.Shape_Area, 3)",
     #                                 expression_type="ARCADE")
 
-    arcpy.management.CalculateField(outputfc2d, "Floor_Area", "floor((!Z_Max! - !Z_Min!)/floor_height)*!Shape_Area!", "PYTHON3", '', "DOUBLE", "NO_ENFORCE_DOMAINS")
+    arcpy.management.CalculateField(outputfc2d, "Floor_Area", "math.floor((!Z_Max! - !Z_Min!)/{})*!Shape_Area!".format(floor_height), "PYTHON3", '', "DOUBLE", "NO_ENFORCE_DOMAINS")
 
     #shapefile
     arcpy.AddMessage('Create shapefile with buildings: ' + 'buildings.shp')
