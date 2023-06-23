@@ -4,7 +4,6 @@ import arcpy
 import time
 
 
-
 def calculatefsi(shape_file, buildings):
     # Script execution code goes here
     #fullpathgdb = output_gdb_path + '/' + output_gdb_name + '.gdb'
