@@ -1,16 +1,3 @@
-# C:\Program Files\ArcGIS\Pro\bin\Python\envs\arcgispro-py3>python.exe C:\Users\meule001\Downloads\objsplit.py C:\Users\meule001\Downloads\objs\3dbag_v210908_fd2cee53_lod22_3d_7689.obj C:\Users\meule001\Downloads\split\
-
-"""
-Import a directory of obj files into a new file geodatabase feature class.
-
-Run:
-
-python batchobjimport.py INPUT_DIR OUTPUT_DIR OUTPUT_NAME
-python batchobjimport.py  C:/Users/meule001/Downloads/split/ C:/Users/meule001/Downloads/ importgdb
-
-"""
-
-# import arcpy and 3d module
 import sys
 import arcpy
 from arcpy import ddd
