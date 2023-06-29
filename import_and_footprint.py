@@ -62,6 +62,7 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name, floor_height):
 
     # add buildings fc and areasofinterest fc to map
     aprx = arcpy.mp.ArcGISProject("CURRENT")
+    arcpy.AddMessage('NR maps {0}'.format(len(aprx.listMaps("Map"))))
     aprxMap = aprx.listMaps("Map")[0]
     aprxMap.addDataFromPath(outputfc2d)
     aprxMap.addDataFromPath(fullpathgdb + "/" + "areasofinterest")
@@ -118,5 +119,5 @@ if __name__ == '__main__':
     obj_input_dir = sys.argv[1]
     output_gdb_path = sys.argv[2]
     output_gdb_name = sys.argv[3]
-    floor_height = int(sys.argv[4])
+    floor_height = float(sys.argv[4])
     main(obj_input_dir, output_gdb_path, output_gdb_name, floor_height)
