@@ -1,6 +1,6 @@
 # Geospatial VR Toolbox #
 
-This toolbox allows for exchanging data between ArcGIS (Pro) and the Merkator City software.
+This toolbox allows ...
 
 The toolbox contains of several tools:
 
@@ -12,12 +12,18 @@ The toolbox contains of several tools:
 
 ### Using inside ARCGIS Pro ###
 
-* Download the zipfile from the download directory
+* Download the [zipfile](./download/geospatialvr-toolbox.zip) from the download directory
 * Unzip the files
 * Add the toolbox to a project
 * Start with 01 Split obj, make use of the i icon and the help icon
 * In step 3 you have to draw an area of interest, which you can use in step 4a en 4b
 
+
+### Using with Merkator City software ###
+
+The scripts can also be used for exchanging data between ArcGIS (Pro) and the Merkator City software.
+
+* documentation follows
 
 ### Requirements ###
 
