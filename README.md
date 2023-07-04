@@ -1,6 +1,11 @@
 # Geospatial VR Toolbox #
 
-This toolbox allows ...
+This toolbox allows for calculating different calculations for an area with buildings. The buildings are obtained from the 3D bag of the TU Delft.
+You can draw your own area for doing the measurements.
+
+Current calculations:
+* Floor Space Index
+* Grond Space Index
 
 The toolbox contains of several tools:
 
