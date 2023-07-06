@@ -11,7 +11,9 @@ def main(shape_file, buildings):
     arcpy.AddMessage("gdbpath=" + gdbpath)
     arcpy.env.workspace = gdbpath
     arcpy.AddMessage("Adding projection to shape file")
-    arcpy.management.DefineProjection(shape_file, 'PROJCS["RD_New",GEOGCS["GCS_Amersfoort",DATUM["D_Amersfoort",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Double_Stereographic"],PARAMETER["False_Easting",155000.0],PARAMETER["False_Northing",463000.0],PARAMETER["Central_Meridian",5.38763888888889],PARAMETER["Scale_Factor",0.9999079],PARAMETER["Latitude_Of_Origin",52.15616055555555],UNIT["Meter",1.0]]')
+    spatialReference = arcpy.Describe(buildings).spatialReference
+    arcpy.AddMessage("spatialReference=" + spatialReference.Name)
+    arcpy.management.DefineProjection(shape_file, spatialReference)
 
     # add shapefile to gdbpath
     head, tail = os.path.split(shape_file)

@@ -56,11 +56,11 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name, floor_height):
 
     arcpy.AddMessage("Buildings feature class {0} created".format(outputfc2d))
 
-    SR = arcpy.Describe(outputfc2d).spatialReference
-    arcpy.AddMessage("Spatial Reference {0}".format(SR.Name))
+    spatialReference = arcpy.Describe(outputfc2d).spatialReference
+    arcpy.AddMessage("Spatial Reference {0}".format(spatialReference.Name))
 
     # add feature class for area of interest
-    arcpy.management.CreateFeatureclass(fullpathgdb, "areasofinterest", "POLYGON", None, "DISABLED", "DISABLED", SR, '', 0, 0, 0, '')
+    arcpy.management.CreateFeatureclass(fullpathgdb, "areasofinterest", "POLYGON", None, "DISABLED", "DISABLED", spatialReference, '', 0, 0, 0, '')
 
     # add buildings fc and areasofinterest fc to map
     aprx = arcpy.mp.ArcGISProject("CURRENT")
