@@ -50,15 +50,17 @@ def main(obj_input_dir, output_gdb_path, output_gdb_name, floor_height):
 
     arcpy.management.CalculateField(outputfc2d, "Floor_Area", "math.floor((!Z_Max! - !Z_Min!)/{})*!Shape_Area!".format(floor_height), "PYTHON3", '', "DOUBLE", "NO_ENFORCE_DOMAINS")
 
-    #shapefile
+    #s hapefile
     arcpy.AddMessage('Create shapefile with buildings: ' + 'buildings.shp')
     arcpy.conversion.FeatureClassToFeatureClass(outputfc2d, output_gdb_path, 'buildings.shp')
 
     arcpy.AddMessage("Buildings feature class {0} created".format(outputfc2d))
 
+    SR = arcpy.Describe(outputfc2d).spatialReference
+    arcpy.AddMessage("Spatial Reference {0}".format(SR.Name))
+
     # add feature class for area of interest
-    arcpy.management.CreateFeatureclass(fullpathgdb, "areasofinterest", "POLYGON", None, "DISABLED", "DISABLED",
-                                        'PROJCS["RD_New",GEOGCS["GCS_Amersfoort",DATUM["D_Amersfoort",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Double_Stereographic"],PARAMETER["False_Easting",155000.0],PARAMETER["False_Northing",463000.0],PARAMETER["Central_Meridian",5.38763888888889],PARAMETER["Scale_Factor",0.9999079],PARAMETER["Latitude_Of_Origin",52.15616055555555],UNIT["Meter",1.0]];-30515500 -30279500 10000;-100000 10000;-100000 10000;0.001;0.001;0.001;IsHighPrecision', '', 0, 0, 0, '')
+    arcpy.management.CreateFeatureclass(fullpathgdb, "areasofinterest", "POLYGON", None, "DISABLED", "DISABLED", SR, '', 0, 0, 0, '')
 
     # add buildings fc and areasofinterest fc to map
     aprx = arcpy.mp.ArcGISProject("CURRENT")
