@@ -19,7 +19,7 @@ The toolbox contains of several tools:
 
 * Download the [zipfile](./download/geospatialvr-toolbox.zip) from the download directory
 * Unzip the files
-* Add the toolbox to a project
+* Add the toolbox to a the ArcGIS Pro project folder
 * Start with 01 Split obj, make use of the i icon to the left of a parameter and the ? icon on the right upper site
 * After step 2 you have to draw an area of interest, which you can use in step 3a en 3b
 
