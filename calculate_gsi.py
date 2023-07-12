@@ -2,6 +2,8 @@
 
 import arcpy
 import time
+from tkinter import *
+from tkinter import messagebox
 
 def main(shape_file, buildings):
     # Script execution code goes here
@@ -40,9 +42,14 @@ if __name__ == '__main__':
     # Tool parameter accessed with GetParameter or GetParameterAsText
     area_of_interest = arcpy.GetParameterAsText(0)
     buildings = arcpy.GetParameterAsText(1)
+    nof_aoi=arcpy.GetCount_management(area_of_interest)
+    nof_aoi_count = int(nof_aoi.getOutput(0))
     # buildings = gdb_path + "\\footprint2d"
     arcpy.AddMessage('Areas of Interest: ' + area_of_interest)
     arcpy.AddMessage('Buildings: ' + buildings)
-    main(area_of_interest, buildings)
+    if nof_aoi_count < 1:
+        messagebox.showerror("Error", "You didn't draw an area of interest.\nFor drawing an area of interest, follow the following steps:\n\n1. Go to Edit-Create in top pane\n2. Select the correct area of interest in the create features-pane.\n3. Draw area of interest in the map\n4. Click Save->OK and Clear the Selection")
+    else:
+        main(area_of_interest, buildings)
     
     # Update derived parameter values using arcpy.SetParameter() or arcpy.SetParameterAsText()

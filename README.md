@@ -21,7 +21,7 @@ The toolbox contains of several tools:
 * Unzip the files
 * Add the toolbox to a project
 * Start with 01 Split obj, make use of the i icon to the left of a parameter and the ? icon on the right upper site
-* In step 3 you have to draw an area of interest, which you can use in step 4a en 4b
+* After step 2 you have to draw an area of interest, which you can use in step 3a en 3b
 
 
 ### Using with Merkator City software ###

@@ -3,6 +3,12 @@ import arcpy
 from arcpy import ddd
 import objimport
 from math import floor
+from tkinter import * #required.
+from tkinter import messagebox #for messagebox.
+
+App = Tk() #required.
+App.withdraw() #for hide window.
+
 
 
 def main(obj_input_dir, output_gdb_path, output_gdb_name, floor_height):
@@ -83,3 +89,4 @@ if __name__ == '__main__':
     output_gdb_name = sys.argv[3]
     floor_height = float(sys.argv[4])
     main(obj_input_dir, output_gdb_path, output_gdb_name, floor_height)
+    messagebox.showinfo("Instruction before running next step", "Draw an area of interest in the 'areaofinterest'-featureclass created.\n\n1. Go to Edit-Create in top pane\n2. Select the correct area of interest in the create features-pane.\n3. Draw area of interest in the map\n4. Click Save->OK and Clear the Selection")
